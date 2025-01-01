@@ -4,6 +4,12 @@ from django.views.generic import ListView, DetailView
 from blog.models import Post
 
 
+class HomeView(ListView):
+    model = Post
+    paginate_by = 9
+    template_name = 'blog/home.html'
+
+
 class PostListView(ListView):
     model = Post
 
@@ -18,5 +24,3 @@ class PostDetailView(DetailView):
 
 
 
-def home(request):
-    return render(request, 'base.html')
