@@ -9,19 +9,22 @@ class RecipeInline(admin.StackedInline):
     extra = 1
 
 
-@admin.register(models.Post)
+@admin.register(models.Post) # добавление модели в админку при помощи декоратора
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'category', 'created_at', 'id')
+    '''Добавляем модель постов в админку'''
+    list_display = ('title', 'author', 'category', 'created_at', 'id') # поля для отображения в админке
     inlines = [RecipeInline]
     save_as = True
-    save_on_top = True
+    save_on_top = True # кнопка сохранить сверху
 
 
 @admin.register(models.Recipe)
 class RecipyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'prep_time', 'cook_time', 'post')
+    '''Добавляем модель рецептов в админку'''
+    list_display = ('name', 'prep_time', 'cook_time', 'post') # поля для отображения в админке
 
 
+'''Добавление других моделей в админку'''
 
 admin.site.register(models.Category, MPTTModelAdmin)
 admin.site.register(models.Tag)
