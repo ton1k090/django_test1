@@ -1,7 +1,7 @@
-{% load social_tags %}
+{% load social_tags cache %}
 
 
-
+{% cache 5000 sidebar %}
 <div class="col-lg-4 col-md-4">
     <div class="sidebar__item">
         <div class="sidebar__about__item">
@@ -27,7 +27,7 @@
             <div class="sidebar__item__follow__links">
 
                 {% for item in social_links %}
-                    <a href="{{ item.link }}"><img class="contact_icon" src="{{ item.icon.url }}"></a>
+                    <a href="{{ item.link }}"><img class="" src="{{ item.icon.url }}"></a>
                 {% endfor %}
 
             </div>
@@ -61,3 +61,5 @@
         </div>
     </div>
 </div>
+
+{% endcache %}
