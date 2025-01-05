@@ -24,9 +24,14 @@ class RecipyAdmin(admin.ModelAdmin):
     list_display = ('name', 'prep_time', 'cook_time', 'post') # поля для отображения в админке
 
 
+@admin.register(models.Comment)
+class CommentAdmin(admin.ModelAdmin):
+    '''Добавляем модель комментариев в админку'''
+    list_display = ['name', 'email', 'website', 'created_at', 'id']
+
+
 '''Добавление других моделей в админку'''
 
 admin.site.register(models.Category, MPTTModelAdmin)
 admin.site.register(models.Tag)
-admin.site.register(models.Comment)
 

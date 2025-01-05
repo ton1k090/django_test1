@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from ckeditor.fields import RichTextField
 from django.db import models
 from django.urls import reverse
@@ -53,12 +55,18 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        '''Функция для формирования ссылки для каждого поста'''
+        '''Метод для формирования ссылки для каждого поста'''
         return reverse('post_single', kwargs={'slug': self.category.slug, 'post_slug': self.slug})
 
     def get_recipes(self):
-        '''Функция получения всех рецептов'''
+        '''Метод получения всех рецептов'''
         return self.recipes.all()
+
+    def get_comments(self):
+        '''Метод для вывода всех комментариев'''
+        return self.comment.all()
+
+
 
 
 class Recipe(models.Model):
@@ -81,6 +89,7 @@ class Comment(models.Model):
     '''Модель комментариев'''
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100) # Поле для почты
-    website = models.CharField(max_length=150)
+    website = models.CharField(max_length=150, blank=True, null=True)  # blank - не обязательное поле
     message = models.TextField(max_length=500)
+    created_at = models.DateTimeField(default=timezone.now)
     post = models.ForeignKey(Post, related_name='comment', on_delete=models.CASCADE)
